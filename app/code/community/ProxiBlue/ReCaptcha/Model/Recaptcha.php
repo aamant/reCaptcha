@@ -165,11 +165,12 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
 
     private function _sendRequest($path, $params)
     {
+        if (! str_starts_with('/', $path)) {
+            $path = '/' . $path;
+        }
         $httpRequest = new Zend_Http_Client(
             ProxiBlue_ReCaptcha_Helper_Data::RECAPTCHA_API_SERVER
-            . '/'
             . ProxiBlue_ReCaptcha_Helper_Data::RECAPTCHA_API_PATH
-            . '/'
             . $path
         );
         $httpRequest->setAdapter($this->getAdapter());
